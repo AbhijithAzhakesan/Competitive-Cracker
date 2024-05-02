@@ -1,0 +1,29 @@
+{% extends 'admin.html' %}
+{% block content %}
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            {% for class_obj in class_obj %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ class_obj.title }}</h5>
+                        <p class="card-text">{{ class_obj.description }}</p>
+                        <p class="card-text">Date:{{ class_obj.date_time }}</p>
+                        <p class="card-text">{{ class_obj.class_hours }} hours</p>
+                        <p class="card-text">Instructor:{{ class_obj.instructor }}</p>
+                        <video class="w-100" height="200" controls>
+                            <source src="{{ class_obj.video.url }}" type="video/mp4">
+                        </video>
+                    </div>
+                   <div class="card-footer">
+                        <button class="btn btn-danger mr-2"><a href="{% url 'del_video' class_obj.id %}" class="text-white">Delete</a></button>
+                        <button class="btn btn-primary"><a href="{% url 'update_class' class_obj.id %}" class="text-white">Update</a></button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div> 
+    </div>
+</body>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'admin.html' %}
+{% block content %}
+
+<body>
+    {% for i in classes %}
+    <h2>{{ i.title }}</h2>
+    <p>{{ i.description }}</p>
+    <p>Date and Time: {{ i.date_time }}</p>
+    <p>Duration: {{ i.class_hours }} hours</p>
+    <p>Instructor: {{ i.instructor }}</p>
+    <video height=200px; width=500px; controls>
+        <source src="{{i.video.url}}" type="video/mp4">
+    </video>
+    <div class="row">
+        <button><a href="{% url "del_video" i.id %}">Delete</a></button>
+        <button><a href="{% url "update_class" i.id %}">Update</a></button>
+        
+    </div>
+{% endfor %}
+</body>
+{% endblock %}

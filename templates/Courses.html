@@ -1,0 +1,40 @@
+{% extends "admin.html" %}
+{% block content %}
+<style>
+    .container{
+        margin-top:50px;
+    }
+    .action-link{
+        margin-right:30px;
+    }
+    table{
+        text-align:center;
+    }
+    .delete {
+        margin-top: 10px;
+        
+    }
+</style>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            {% for i in course_data %}
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Course:{{ i.course_name }}</h5>
+                        <p class="card-text">Price:{{ i.course_price }}</p>
+                        <p class="card-text">Starts in:{{ i.start_date }}</p>
+                        <p class="card-text">Ends on:{{ i.end_date }}</p>
+                        <img src='{{i.image.url}}' height=100px>
+                        <div class="delete">
+                            <a href="{% url 'course_del' i.id %}">Delete</a>
+                        </div>                          
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div> 
+    </div>
+</body>
+{% endblock %}

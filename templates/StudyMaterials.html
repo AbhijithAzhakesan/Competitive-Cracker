@@ -1,0 +1,39 @@
+{% extends "admin.html" %}
+{% block content %}
+<style>
+    h1{
+        text-align:center;
+        margin-top:10px;
+        margin-bottom:10px;
+    }
+</style>
+<body>
+    <div class='container-mt'>
+        <h1>Study Materials</h1>
+    <table class='table table-dark table-hover'>
+        <thead>
+            <tr style="text-align:center">
+                <th>Title</th>
+                <th>Topic</th>
+                <th>Date</th>
+                <th>File</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+            <tr style="text-align:center">
+                <td>{{i.title}}</td>
+                <td>{{i.topic}}</td>
+                <td>{{i.date}}</td>
+                <td><embed src="{{ i.pdf_notes.url }}" type="application/pdf" width="100px" height="100px"></td>
+                <td><button><a href="{% url "del_file" i.id %}">Delete</a><button><a href="{% url "download_file" i.id %}">Download</a></button></button></td>
+                
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+</body>
+{% endblock %}

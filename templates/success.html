@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    {% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Success Page</title>
+    <link rel="stylesheet" href="{% static 'css/success.css' %}">
+</head>
+<body>
+    <div class="container">
+        <svg id="successIcon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M22.594 7.687a.75.75 0 0 0-1.061-.012L9 18.293 3.467 12.76a.75.75 0 0 0-1.067 1.056l6.5 6.5a.75.75 0 0 0 1.064.002l13.95-13.95z"/>
+        </svg>
+        <h1>Payment Successful!</h1>
+        <p>Thank you for your purchase.</p>
+        <p>You now have access to the course.</p><br>
+        <a id="goHomeBtn" href="{% url 'MyProfile' %}">Go to Home</a>
+    </div>
+
+    <script>
+        // Add animation when the page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            var icon = document.getElementById('successIcon');
+            icon.style.transform = 'scale(0.8)';
+            setTimeout(function() {
+                icon.style.transform = 'scale(1)';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

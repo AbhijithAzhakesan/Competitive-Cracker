@@ -1,0 +1,302 @@
+#spinner {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .5s ease-out, visibility 0s linear .5s;
+    z-index: 99999;
+}
+
+#spinner.show {
+    transition: opacity .5s ease-out, visibility 0s linear 0s;
+    visibility: visible;
+    opacity: 1;
+}
+
+body {
+    background-color: rgba(255, 255, 255, 0.97);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+.sidebar {
+    position: fixed;
+    top: 0; /* Adjust this value to set the distance from the top */
+    left: 0; /* Adjust this value to set the distance from the left */
+    height: 100vh; /* Set the height to full viewport height */
+    width: 200px; /* Set the width of the sidebar */
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    margin: 0;
+    position: fixed;
+}
+
+.sidebar h2 {
+    margin: 0;
+    padding: 0;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li {
+    padding: 10px 0;
+    border-bottom: 1px solid #555;
+}
+
+.sidebar ul li:last-child {
+    border-bottom: none;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: none;
+}
+
+.logo-link {
+    text-decoration: none;
+    margin-bottom: 10px;
+}
+
+.logo-text {
+    font-size: 1.5rem;
+    margin: 0;
+    padding: 10px;
+    padding-top: 10px;
+}
+
+.nav-bar {
+    background-color: #ffffff;
+    color: white;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    left: 240px;
+    width: calc(100% - 200px);
+    z-index: 1000;
+    height: 60px;
+}
+
+.nav-bar ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-bar ul li {
+    display: inline;
+    padding-right: 10px;
+}
+
+.nav-bar a {
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+}
+
+.nav-bar a:hover {
+    text-decoration: none;
+    color: #06BBCC;
+}
+/* .container{
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: space-between;
+}
+.cart-items{
+    display: flex;
+    flex-direction: column;
+}
+.course-img {
+    width: 300px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.course-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+} */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* align items horizontally */
+    justify-content: space-between;
+    min-height: 100vh; /* ensures the container takes up at least the full viewport height */
+    padding: 20px; /* adds space around the content */
+    margin-top: 150px;
+}
+
+.cart-items {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin-left: 350px;
+    width: 100%;
+    position: relative;
+}
+
+.course-img {
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 10px;
+    margin: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+.course-img img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+.texts {
+    flex: 1; /* take remaining space */
+    padding: 10px;
+    text-align: center; /* align text to the center */
+    font-size: 16px;
+    font-weight: bold;
+}
+.row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+
+}
+
+.row:first-child {
+    border-top: none; /* removes border for the first row */
+}
+
+.bordered-box {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 20px;
+}
+.order-details {
+    position: fixed; /* or absolute */
+    right: 0;
+    width: 300px; /* adjust width as needed */
+    height: 100%; /* ensures it takes full height of the viewport */
+    background-color: #fff; /* set background color */
+    padding: 20px; /* add padding */
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1); /* add shadow for depth */
+    border-radius: 10px;
+    margin-right: 100px;
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10px;
+    padding-bottom: 50px;
+}
+.minus-btn, .plus-btn {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-color: #f5f5f5;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.minus-btn:hover, .plus-btn:hover {
+    background-color: #ddd;
+}
+
+.quantity {
+    display: inline-block;
+    margin: 0 10px;
+    font-size: 16px;
+    font-weight: bold;
+    width: 30px;
+    text-align: center;
+}
+
+/* coupon */
+
+.apply-coupon {
+    margin-bottom: 20px;
+    display: flex;
+}
+.apply-coupon input {
+    padding: 5px;
+    width: 200px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+.apply-coupon button {
+    padding: 5px 10px;
+    background-color: #333333e8;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.apply-coupon button:hover{
+    background-color: #333;
+}
+
+/* remove button */
+
+.remove-btn {
+    display: block; /* Display as block to align below the quantity */
+    margin-top: 5px; /* Add some space between the quantity and the button */
+    text-align: center; /* Align text to the center */
+    padding: 5px 10px; /* Add padding to the button */
+    border-radius: 10px; /* Add border radius */
+    text-decoration: none; /* Remove underline */
+    color: #fff; /* Text color */
+    background-color: #333; /* Button background color */
+    width: 100px;
+}
+
+.remove-btn:hover {
+    background-color: #2e2d2d; /* Button background color on hover */
+}
+
+.remove-btn i {
+    margin-right: 5px; /* Add some space between the icon and the text */
+}
+
+/* Buy button */
+
+.buy {
+    margin-top: 10px;
+    
+}
+
+.buy h5 {
+    background-color: #06BBCC;
+    color: white;
+    text-align: center;
+    padding: 10px 20px;
+    margin: 0;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.buy h5:hover {
+    background-color: #059dab;
+}

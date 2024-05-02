@@ -1,0 +1,35 @@
+{% extends "admin.html" %}
+{% block content %}
+<style>
+    .container{
+        margin-top:50px;
+    }
+    table{
+        text-align:center;
+    }
+</style>
+<body>
+        <table class="table table-dark table-hover">
+            <tr>
+                <th>Sl.No</th>
+                <th>Name</th>
+                <th>Subject</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Photo</th>
+                <th>Action</th>
+            </tr>
+            {% for i in data %}
+            <tr>
+                <td>{{forloop.counter}}</td>
+                <td>{{i.Name}}</td>
+                <td>{{i.Subject}}</td>
+                <td>{{i.Email}}</td>
+                <td>{{i.Phone_Number}}</td>
+                <td><img src='{{i.image.url}}' height=100px></td>
+                <td><a href="{% url 'delete_teacher' i.user_id %}">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+</body>
+{% endblock %}

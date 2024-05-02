@@ -1,0 +1,14 @@
+{% extends 'admin.html' %}
+{% block content %}
+{% load static %}
+{% load crispy_forms_tags %}
+<body>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+            {{form1|crispy}}
+        </div>
+        <button type="submit">Upload</button>
+    </form>
+</body>
+{% endblock %}
