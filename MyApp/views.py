@@ -1,14 +1,18 @@
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from MyApp.forms import CourseReg, Materials, TeachersReg, User_register, Video, signup
-from MyApp.models import Cart_courses, Courses, Customers, StudyMaterials, TeachersLogin, OnlineClass, Purchase, Order
+from MyApp.forms import AddressForm, CourseReg, Materials, TeachersReg, User_register, Video, signup
+from MyApp.models import Cart_courses, Courses, Customers, Order_items, StudyMaterials, TeachersLogin, OnlineClass, Purchase
 
 # Create your views here.
 def HomePage(request):
     return render(request,'index.html')
+
+def Home(request):
+    return render(request, 'home.html')
 
 def careers(request):
     return render(request, 'Carrers.html')
@@ -26,16 +30,16 @@ def loginPage(request):
             if user.is_staff:
                 return redirect (AdminPage)
             elif user.is_customer:
-                return redirect(MyProfile)
+                return redirect(Home)
             elif user.is_teacher:
                 return redirect(TeachersPage)
         else:
             messages.info(request, message='Not a Registered User')
     return render(request,'login.html')
 
-def log_out(request):
+def logout_view(request):
     logout(request)
-    return redirect('HomePage')
+    return redirect('loginPage')
 
 def TeacherSignup(request):
     form1=User_register()
@@ -147,13 +151,13 @@ def UploadVideo(request):
             user=form1.save(commit=False)
             user.is_video=True
             user.save()
-            return redirect('class_list')
+            return redirect('class_details')
     return render(request,'VideoUpload.html',{'form1':form1})
 
 def del_video(request,id):
     data=OnlineClass.objects.get(id=id)
     data.delete()
-    return redirect('class_list')
+    return redirect('class_details')
 
 def update_class(request,id):
     on_class=OnlineClass.objects.get(id=id)
@@ -162,7 +166,7 @@ def update_class(request,id):
         form=Video(request.POST,instance=on_class)
         if form.is_valid():
             form.save()
-            return redirect('class_list')
+            return redirect('class_details')
     return render(request,'ClassUpdate.html',{'form':form})
 
 def study_materials(request):
@@ -236,10 +240,13 @@ def e_books(request):
 def my_orders(request):
     return render(request,'myOrders.html')
 
-def my_wishlist(request):
-    return render(request,'myWishlist.html')
+def study_materials(request):
+    materials = StudyMaterials.objects.all()
+    return render(request, 'study_materials.html', {'materials': materials})
 
-@login_required
+
+
+@login_required(login_url='loginPage')
 def buy(request, course_id):
     course = Courses.objects.get(pk=course_id)
     user = request.user
@@ -289,29 +296,31 @@ def remove_from_cart(request, cart_item_id):
     
     return redirect('cart')
 
-def buy_items(request):
-    if request.method == 'POST' and request.user.is_authenticated:
+def add_to_order(request):
+    if request.method == 'POST':
         cart_items = Cart_courses.objects.filter(user=request.user)
-        if cart_items.exists():
-            # Create an order for each item in the cart
-            for item in cart_items:
-                Order.objects.create(user=request.user, course=item.course, qty=item.qty, price=item.price)
 
-            # Clear the cart
+        if cart_items.exists():
+            # Transfer items from cart to order
+            for cart_item in cart_items:
+                order_item, created = Order_items.objects.get_or_create(
+                    user=request.user,
+                    course=cart_item.course,
+                    qty=0,  # Provide default value for qty
+                    price=cart_item.price,
+                    total=0  # Provide default value for total
+                )
+                order_item.qty += cart_item.qty
+                order_item.total += cart_item.qty * cart_item.price  # Calculate total
+                order_item.save()
+
+            # Delete items from cart after transferring to order
             cart_items.delete()
 
-            messages.success(request, "Items purchased successfully")
+            messages.success(request, 'Items transferred to your order.')
+            return redirect('success_page')  # Redirect to view_order page
         else:
-            messages.error(request, "Your cart is empty")
-    elif not request.user.is_authenticated:
-        messages.error(request, "You must be logged in to buy items")
-
-    return redirect('success_page')  # Redirect back to the cart page
-
-def my_order(request):
-    if request.user.is_authenticated:
-        orders = Order.objects.filter(user=request.user)
-        return render(request, 'myorders.html', {'orders': orders})
+            return HttpResponse("No items added to the order.")
     else:
-        # Handle the case where the user is not authenticated
-        return render(request, 'myorders.html', {'orders': None})
+        # Handle cases where request method is not POST
+        return HttpResponse("Method not allowed.")

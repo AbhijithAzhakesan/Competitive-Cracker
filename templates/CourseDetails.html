@@ -42,13 +42,20 @@
         
         <nav class="nav-bar">
             <ul>
-                <li><a href="{% url 'all_courses' %}"><i class="fa fa-arrow-left"></i> Back</a></li>
+                <div class="left">
+                    <li><a href="{% url 'all_courses' %}"><i class="fa fa-arrow-left"></i> Back</a></li>
+                </div>
+                <div class="right">
+                    <li><a href="{% url 'MyProfile' %}" class="nav-item nav-link"><i class="fas fa-user"></i> {{ request.user.Customer.First_Name }} {{ request.user.Customer.Last_Name }}</a></li>
+                    <li><a href="{% url 'cart' %}" class="nav-item nav-link"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                    <li><a href="{% url 'my_orders' %}" class="nav-item nav-link"><i class="fas fa-box"></i> My Orders</a></li>
+                </div>
             </ul>
         </nav>
 
         
         <div class="sidebar">
-            <a href="{% url 'HomePage' %}" class="logo-link">
+            <a href="{% url 'Home' %}" class="logo-link">
                 <h2 class="logo-text m-0 text-primary">Competitive Cracker</h2>
             </a>
             <ul>

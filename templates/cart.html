@@ -7,6 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Cart</title>
     <link rel="stylesheet" href="{% static 'css/cart.css' %}">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
 </head>
 <body>        <!-- Spinner Start -->
     <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
@@ -18,12 +21,24 @@
     
     <nav class="nav-bar">
         <ul>
-            <li><a href="{% url 'all_courses' %}"><i class="fa fa-arrow-left"></i> Back</a></li>
+            <div class="logo">
+                <a href="{% url 'Home' %}" class="logo-link">
+                    <h2 class="logo-text m-0 text-primary">Competitive Cracker</h2>
+                </a>
+            </div>
+            <!-- <div class="left">
+                <li><a href="{% url 'all_courses' %}"><i class="fa fa-arrow-left"></i> Back</a></li>
+            </div> -->
+            <div class="right">
+                <li><a href="{% url 'MyProfile' %}" class="nav-item nav-link"><i class="fas fa-user"></i> {{ request.user.Customer.First_Name }} {{ request.user.Customer.Last_Name }}</a></li>
+                <li><a href="{% url 'cart' %}" class="nav-item nav-link"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+                <li><a href="{% url 'my_orders' %}" class="nav-item nav-link"><i class="fas fa-box"></i> My Orders</a></li>
+            </div>
         </ul>
     </nav>
 
     
-    <div class="sidebar">
+    <!-- <div class="sidebar">
         <a href="{% url 'HomePage' %}" class="logo-link">
             <h2 class="logo-text m-0 text-primary">Competitive Cracker</h2>
         </a>
@@ -33,7 +48,7 @@
             <li><a href="#store">Store</a></li>
             <li><a href="#see-more">See More</a></li>
         </ul>
-    </div>
+    </div> -->
     <div class="container">
         {% for item in cart_items %}
         <div class="cart-items">
@@ -84,7 +99,8 @@
                             <div class="value" style="font-weight: bold;">₹ {{ total_amount }}</div>                                             
                         </div>
                         <div class="buy">
-                            <a href="{% url 'buy_now' %}" class="btn btn-success"><h5>PROCEED TO BUY</h5></a>
+                            <a href="{% url 'add_to_order' %}"><h5>Proceed to Buy</h5></a>
+                            <!-- <a href="{% url 'buy' course_id=1 %}"><h5>Proceed to Buy</h5></a> -->
                         </div>
                     </div>
                 </div>
@@ -94,6 +110,7 @@
     </div>
 
              <!-- javascript code here -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>         
     <script>
         $(document).ready(function() {
             $('.minus-btn').on('click', function() {
@@ -111,27 +128,3 @@
     </script>
 </body>
 </html>
-<!-- <h1>Your Cart</h1>
-    <div class="cart-items">
-        {% for item in cart_items %}
-            <div class="cart-item">
-                <img src="{{ item.course.image.url }}" alt="{{ item.course.course_name }}">
-                <p>Name: {{ item.course.course_name }}</p>
-                <p>Price: {{ item.price }}</p>
-                <p>Quantity: {{ item.qty }}</p>
-                <select class="a-native-dropdown a-declarative" id="select1" name="Quantity" autocomplete="off" tabindex="0" data-action="a-dropdown-select">
-                    <option value="1" selected="">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                    <option value="6">6</option>
-                    <option value="7">7</option>
-                </select>
-                <a href="{% url 'remove_from_cart' cart_item_id=item.id %}" class="btn btn-danger">Remove</a>
-            </div>
-        {% empty %}
-            <p>Your cart is empty</p>
-        {% endfor %}
-    </div>
-    <p>Total Amount: {{ total_amount }}</p> -->

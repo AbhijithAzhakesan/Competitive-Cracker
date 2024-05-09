@@ -44,5 +44,13 @@ class Materials(forms.ModelForm):
     class Meta:
         model=StudyMaterials
         fields=('title','topic','date','pdf_notes',)
+        
+class AddressForm(forms.Form):
+    address_line_1 = forms.CharField(label='Address Line 1', max_length=100)
+    address_line_2 = forms.CharField(label='Address Line 2', max_length=100, required=False)
+    city = forms.CharField(label='City', max_length=100)
+    state = forms.CharField(label='State', max_length=100)
+    pincode = forms.CharField(label='Pincode', max_length=10)
+    phone_number = forms.CharField(label='Phone Number', max_length=15)
 
         

@@ -12,8 +12,8 @@
         <source src="{{i.video.url}}" type="video/mp4">
     </video>
     <div class="row">
-        <button><a href="{% url "del_video" i.id %}">Delete</a></button>
-        <button><a href="{% url "update_class" i.id %}">Update</a></button>
+        <button><a href="{% url 'del_video' i.id %}">Delete</a></button>
+        <button><a href="{% url 'update_class' i.id %}">Update</a></button>
         
     </div>
 {% endfor %}

@@ -46,7 +46,7 @@
     </nav>
     <div class="container">
         <div class="sidebar">
-            <a href="{% url 'HomePage' %}" class="logo-link">
+            <a href="{% url 'Home' %}" class="logo-link">
                 <h2 class="logo-text m-0 text-primary">Competitive Cracker</h2>
             </a>
             <ul>
@@ -56,22 +56,22 @@
                 <li><a href="{% url 'live_classes' %}">Live classes</a></li>
                 <li><a href="{% url 'e_books' %}">E-Books</a></li>
                 <li class="active"><a href="{% url 'my_orders' %}">My Orders</a></li>
-                <li><a href="{% url 'my_wishlist' %}">My Wishlist</a></li>
+                <li><a href="{% url 'study_materials' %}">Study Materials</a></li>
+                <li><a href="{% url 'logout_view' %}">Logout</a></li>
             </ul>
         </div>
         <div class="content">
             <h1>My Orders</h1>
-            <ul>
-                {% for order in orders %}
-                    <li>Order ID: {{ order.id }}</li>
-                    <li>Course: {{ order.course }}</li>
-                    <li>Quantity: {{ order.qty }}</li>
-                    <li>Price: {{ order.price }}</li>
-                    <hr>
-                {% empty %}
-                    <li>No orders found.</li>
-                {% endfor %}
-            </ul>
+            {% for order in orders %}
+                <div class="order">
+                    <p>Order ID: {{ order.id }}</p>
+                    <ul>
+                        {% for item in order.order_items.all %}
+                            <li>{{ item.course.course_name }} - Quantity: {{ item.qty }} - Price: ₹{{ item.price }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endfor %}
         </div>
     </div>
 </body>

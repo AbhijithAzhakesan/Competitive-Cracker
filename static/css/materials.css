@@ -1,0 +1,30 @@
+.materials-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding-top: 100px;
+    padding-right: 400px;
+}
+
+.material {
+    width: 200px;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.material h3 {
+    margin-top: 0;
+}
+
+.material p {
+    margin-bottom: 5px;
+}
+
+.material a {
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+    color: blue;
+}
